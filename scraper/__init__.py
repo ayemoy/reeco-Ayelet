@@ -4,6 +4,7 @@ from playwright.async_api import async_playwright, Browser, Page
 async def enter_site_and_get_page(zip_code: str = "97035") -> tuple[Browser, Page]:
     print("Launching browser and navigating to site...")
 
+
     playwright = await async_playwright().start()
     browser = await playwright.chromium.launch(headless=False)
     page = await browser.new_page()
