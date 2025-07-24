@@ -1,35 +1,51 @@
-r
-Overview
-This project implements a web scraping tool designed to extract product data from the Sysco website. The scraper collects structured information about grocery and foodservice items across multiple categories.
+# Sysco Product Scraper
 
-Technologies Used
-Python – chosen as the primary programming language for its simplicity and strong ecosystem for data processing.
+## Overview
 
-Playwright – selected as the main browser automation tool for scraping, as it is a modern, powerful alternative to Selenium.
+This project implements a web scraper that extracts product data from the [Sysco](https://shop.sysco.com) website. The scraper is designed to collect structured information about grocery and foodservice items from various product categories.
 
-Pandas – used to handle tabular data and export structured information to CSV files.
+## Technologies Used
 
-BeautifulSoup – utilized for clear and flexible parsing of HTML and DOM structures.
+- **Python** – chosen as the main programming language.
+- **Playwright** – a modern browser automation library, used instead of Selenium.
+- **Pandas** – preferred for handling and exporting tabular data in CSV format.
+- **BeautifulSoup** – used for parsing and navigating HTML/DOM structures more clearly and easily.
 
-Zip Code Used
-The scraper was configured to use the following U.S. zip code: 97035 (Lake Oswego, Oregon).
+## Zip Code Used
 
-Challenges
-The Sysco website requires full business verification to register as a customer. As an unverified guest, I could only access a limited subset of the products.
+- The scraper was run using the following U.S. zip code: `97035`.
 
-Even with VPN access and a local Oregon phone number, I was unable to complete the registration process without direct communication with their support team.
+## Site Access Limitations
 
-As a result, access to their APIs was not possible, and only public product listings were available.
+Due to Sysco’s registration policy:
 
-After two days of scraping, the website blocked access to my scraper, regardless of which U.S. zip code I used. Eventually, I was able to overcome this limitation and resume scraping.
+- I was unable to register as a customer since full business verification is required.
+- Even when using a VPN and a phone number based in Oregon, I could only browse the site as a guest.
+- As a guest, the number of products shown was limited, and I had no access to their APIs, which would have simplified data extraction.
 
-Bonus Features Completed
-Full Catalog Scraping – The scraper automatically traverses all product categories and gathers data on every visible item.
+## Technical Challenges
 
-Extended Field Extraction – Initially, only the required fields were collected. Later, additional fields (such as nutritional values, ingredients, dimensions, features, GTIN, etc.) were extracted when available. These fields vary from product to product.
+- After two days of scraping, the site began blocking access regardless of the U.S. zip code used.
+- I was eventually able to bypass the block and continue scraping successfully.
 
-Selective Field Coverage – Not all fields were scraped to avoid excessive run-time, especially considering the temporary IP blocks I encountered. However, the scraping logic is extensible and demonstrates the intended approach.
+## Bonus Features
 
-Optimization Note
-For performance improvements, the scraper could be parallelized using Python's asyncio along with a Semaphore to control the number of concurrent browser tabs. This would significantly reduce scraping time. For this submission, however, I chose to submit a more "naive" sequential version for clarity.
+The following bonus requirements were implemented:
+
+- **Scraped all products from all categories**
+- **Initially extracted only the essential fields required by the assignment**
+- **Extended scraping logic to collect additional product-specific fields**, such as:
+  - Nutritional information
+  - Ingredients
+  - Dimensions
+  - Features
+  - GTIN
+- Not all possible fields were collected, in order to save time and avoid repeated blocks but the extraction logic is extendable and demonstrates full understanding of the task.
+
+## Future Optimization
+
+- The scraper could be significantly accelerated using Python's `asyncio` with a `Semaphore` to run scraping tasks in parallel across multiple browser tabs.
+- For clarity and simplicity, this version was submitted in a more naive, sequential form.
+
+
 
