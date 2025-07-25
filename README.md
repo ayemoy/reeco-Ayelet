@@ -46,6 +46,4 @@ The following bonus requirements were implemented:
 
 - The scraper could be significantly accelerated using Python's `asyncio` with a `Semaphore` to run scraping tasks in parallel across multiple browser tabs.
 - For clarity and simplicity, this version was submitted in a more naive, sequential form.
-
-
-
+- Alternatively, low-code/no-code platforms like UiPath could have been used to streamline the task with minimal coding.
