@@ -10,7 +10,7 @@ async def main():
     browser, page = await enter_site_and_get_page("97035")
     print("Site loaded successfully and ready for scraping!")
 
-    summary = []
+    # summary = []
     await visit_each_category(page)
 
     

@@ -6,6 +6,7 @@ import re
 category_data = {}
 
 # clean the text
+# replace spaces in one space char + remove spaces from start and end
 def clean(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
@@ -17,6 +18,7 @@ async def collect_item_information(page: Page, category_name: str) -> None:
     
     # if there is "read more" button in page we need to click on it
     try:
+        # Playwright - if element exist terturn element, else None
         read_more = await page.query_selector('button:has-text("Read More")')
         if read_more:
             await read_more.click()
@@ -30,6 +32,7 @@ async def collect_item_information(page: Page, category_name: str) -> None:
     product = {}
 
     ### all the 6 data that i have to collect in assignment
+    # name, brand, packing info, sku, img url, description
     try:
         name = soup.select_one('[data-id="product_name"]')
         product["Product Name"] = clean(name.text if name else "")
@@ -60,6 +63,7 @@ async def collect_item_information(page: Page, category_name: str) -> None:
     except:
         product["Picture URL"] = ""
 
+    # here i clean from description the read less button text
     try:
         desc = soup.select_one('.description-detail-wrapper')
         description_text = clean(desc.text if desc else "")
@@ -72,7 +76,7 @@ async def collect_item_information(page: Page, category_name: str) -> None:
         product["Description"] = ""
 
     
-    ### get the data from the headline - Specifications
+    ### get the data from the headline - Specifications section below description section
     try:
         spec_section = soup.find("div", class_="product-specifications-wrapper")
         if spec_section:
@@ -91,7 +95,7 @@ async def collect_item_information(page: Page, category_name: str) -> None:
         print(f"Failed to parse specifications: {e}")
 
     
-    # collect theinfo from title "Nutrition" block
+    # collect the info from title "Nutrition" block
     try:
         ingredients_header = soup.find("div", class_="nutrition-details-header", string=re.compile(r"Ingredients", re.I))
         if ingredients_header:
@@ -117,6 +121,7 @@ async def collect_item_information(page: Page, category_name: str) -> None:
 
 
     #save it by categories
+    print(category_data)
     if category_name not in category_data:
         category_data[category_name] = []
     
